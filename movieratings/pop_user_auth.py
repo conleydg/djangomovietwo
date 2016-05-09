@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from movie_lens_online.models import Rater, Movie, Rating
+from movie_lens_online.models import Rater, Movie, Rating, Moviegenre
 
 for rater in Rater.objects.all():
     user1 = User.objects(username='user{}'.format(rater.user_id), email='{}@gmail.com'.format(rater.user_id), password='password')

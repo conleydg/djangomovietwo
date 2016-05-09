@@ -1,0 +1,18 @@
+{% extends "movies/base.html" %}
+{% load i18n %}
+{% block content %}
+
+<h1>{{ genre }}</h1>
+{% if sorted_movies %}
+    <ul>
+    {% for movie in sorted_movies %}
+        <li><a href="/movie_lens_online/{{ movie.movie_id }}/">{{ movie.movie_title}}</a> : {{ movie.aveg_rating}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+
+
+{% endblock content %}

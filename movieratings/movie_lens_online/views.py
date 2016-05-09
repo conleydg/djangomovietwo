@@ -6,8 +6,9 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
+from django.db.models import Avg, Count, Sum
 
-from .models import Rater, Movie, Rating
+from .models import Rater, Movie, Rating, Moviegenre
 from .forms import AddRatingForm
 
 
@@ -97,3 +98,24 @@ def login_user(request):
             state = "Your username and/or password were incorrect."
 
     return render(request, 'movies/auth.html',{'state':state, 'username': username})
+
+
+def top_by_genre(request, genre):
+        # for movie in Movie.objects.all():
+        #     movie_id = movie.movie_id
+        #     movie_ratings = Rating.objects.filter(movie_id=movie_id)
+        #     movie_count = len(movie_ratings)
+        #     movie_sum = movie_ratings.aggregate(Sum('rating'))
+        #     movie_avg = movie_sum['rating__sum']/movie_count
+        #     movie.
+        #
+        genre_find='moviegenre__{}'.format(genre)
+        sig_sample = Movie.objects.annotate(count = Count('rating')).filter(count__gt = 10)
+        sig_sample = sig_sample.filter(**{genre_find:1})
+        sorted_movies = sig_sample.annotate(aveg_rating = Avg('rating__rating')).order_by('-aveg_rating')
+        sorted_movies = sorted_movies[:20]
+        # for movie in sorted_movies:
+        #     movie_obj_avg = movie.aveg_rating
+
+        context = {'sorted_movies':sorted_movies, 'genre':genre}
+        return render(request, 'movies/tops.html', context)
