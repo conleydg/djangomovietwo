@@ -13,4 +13,7 @@ urlpatterns = [
     url(r'^(?P<movie_id>[0-9]+)/$', views.movie, name='movie'),
     url(r'^rater/(?P<user_id>[0-9]+)/$', views.raterer, name='rater'),
     url(r'^login/$', views.login_user),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+
+
 ]

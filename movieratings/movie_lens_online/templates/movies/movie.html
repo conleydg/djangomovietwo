@@ -1,12 +1,57 @@
+{% extends "movies/base.html" %}
+{% load i18n %}
+{% block content %}
+
 <h1>{{ name_finder }}</h1>
 <h3> {{ avg_rating }} </h3>
+
+
 
 {% if rating_list %}
     <ul>
     {% for rating in rating_list %}
-        <li><a href="/movie_lens_online/rater/{{ rating.rater_id }}/">{{ rating.rater_id }}</a> : {{ rating.rating }}</li>
+        <li><a href="/movie_lens_online/rater/{{ rating.rater_id }}/">{{ rating.find_username }}</a> :{{ User.user_name }} {{ rating.rating }}</li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+
+{% if user.is_authenticated and current_id not in rater_queries %}
+        <h1>Add a rating</h1>
+
+            <form id="AddRatingForm" method="post" action="">
+
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+
+                <input type="submit" name="submit" value="Add Rating" />
+            </form>
+{% else %}
+    {% if user.is_authenticated  %}
+      <p> You have already rated this movie! </p>
+    {% else %}
+      <p>Login to create a new rating</p>
+    {% endif %}
+{% endif %}
+
+{% endblock content %}
+
+
+
+
+
+  <!-- <form action="/your-rating/" method="post">
+      <label for="your_rating">Your rating: </label>
+      <input id="your_rating" type="text" name="your_rating" value="{{ current_rating }}">
+      <input type="submit" value="OK">
+  </form> -->

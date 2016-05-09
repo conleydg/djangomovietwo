@@ -1,3 +1,10 @@
+{% extends "movies/base.html" %}
+{% load i18n %}
+{% block content %}
+
+
+
+
 {% if top_twenty_list %}
     <ul>
     {% for movie in top_twenty_list %}
@@ -7,3 +14,7 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+
+
+{% endblock content %}

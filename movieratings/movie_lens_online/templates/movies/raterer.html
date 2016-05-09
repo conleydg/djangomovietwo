@@ -1,15 +1,21 @@
+{% extends "movies/base.html" %}
+{% load i18n %}
+{% block content %}
+
 <h1>User Id: {{ user_id }}</h1>
 <h3> Age: {{ age }} </h3>
 <h3> Sex: {{ sex }} </h3>
 <h3> Occupation: {{ occupation }} </h3>
 <h2> Rated Movies: </h2>
 
-{% if rated_movies_list %}
+{% if movie_obj_list %}
     <ul>
-    {% for movie in rated_movies_list %}
-        <li><a href="/movie_lens_online/{{ movie.movie_id }}/">{{ movie.movie_id  }} </a></li>
+    {% for movie in movie_obj_list %}
+        <li><a href="/movie_lens_online/{{ movie.movie_id }}/">{{ movie.movie_title  }} </a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+{% endblock content %}

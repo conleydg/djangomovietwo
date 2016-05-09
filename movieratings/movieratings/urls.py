@@ -21,4 +21,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^movie_lens_online/', include('movie_lens_online.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 ]

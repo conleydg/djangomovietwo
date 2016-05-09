@@ -1,17 +1,17 @@
 from django.contrib.auth.models import User
 from movie_lens_online.models import Rater, Movie, Rating
 
-for rat in Rater.objects.all():
-    user1 = User.objects.create_user(username=rat.user_id, 'fakeemail@gmail.com','password')
+for rater in Rater.objects.all():
+    user1 = User.objects(username='user{}'.format(rater.user_id), email='{}@gmail.com'.format(rater.user_id), password='password')
     user1.save()
-    rat['auth_u_id'] = user1
-    rat.save()
+    rater.auth_u_id = user1
+    rater.save()
 
 
 
-
-
-
+for one_user in User.objects.all():
+    one_user.set_password('password')
+    one_user.save()
 
 
 

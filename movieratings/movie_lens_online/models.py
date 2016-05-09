@@ -48,3 +48,10 @@ class Rating(models.Model):
     rating = models.IntegerField(default=0)
     rater = models.ForeignKey(Rater, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    def find_username(self):
+        rater_id = self.rater_id
+        rater_obj = Rater.objects.get(user_id=rater_id)
+        auth_id = rater_obj.auth_u_id
+        user_obj = User.objects.get(id=auth_id)
+        return user_obj.username
