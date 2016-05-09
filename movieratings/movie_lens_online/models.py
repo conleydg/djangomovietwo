@@ -48,6 +48,7 @@ class Rating(models.Model):
     rating = models.IntegerField(default=0)
     rater = models.ForeignKey(Rater, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    submit_time = models.DateTimeField(auto_now=True, null=True)
 
     def find_username(self):
         rater_id = self.rater_id

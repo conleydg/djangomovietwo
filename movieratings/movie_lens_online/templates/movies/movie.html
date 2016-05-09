@@ -10,7 +10,7 @@
 {% if rating_list %}
     <ul>
     {% for rating in rating_list %}
-        <li><a href="/movie_lens_online/rater/{{ rating.rater_id }}/">{{ rating.find_username }}</a> :{{ User.user_name }} {{ rating.rating }}</li>
+        <li><a href="/movie_lens_online/rater/{{ rating.rater_id }}/">{{ rating.find_username }}</a> : {{ rating.rating }}</li>
     {% endfor %}
     </ul>
 {% else %}

@@ -31,6 +31,8 @@ def movie(request, movie_id):
             new_rating.movie_id = movie_id
             user = request.user.username
             username = User.objects.get(username=user)
+
+            # username = User.objects.get(username=user)
             new_rating.rater_id = username.rater.user_id
             new_rating.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -38,10 +40,16 @@ def movie(request, movie_id):
             print(form.errors)
     else:
         form = AddRatingForm()
-
-    user = request.user.username
-    username = User.objects.get(username=user)
-    current_id = username.rater.user_id
+    try:
+        user = request.user.username
+        username = User.objects.get(username=user)
+        current_id = username.rater.user_id
+    except:
+        user = None
+        username = None
+        current_id = None
+    # username = User.objects.get(username=user)
+    # current_id = username.rater.user_id
     rating_list = Rating.objects.filter(movie_id=movie_id)
     rater_queries = rating_list.values_list('rater_id', flat=True)
     grabber = (Movie.objects.get(movie_id=movie_id))
