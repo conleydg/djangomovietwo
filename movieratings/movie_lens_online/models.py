@@ -56,3 +56,25 @@ class Rating(models.Model):
         auth_id = rater_obj.auth_u_id
         user_obj = User.objects.get(id=auth_id)
         return user_obj.username
+
+class Moviegenre(models.Model):
+    movie = models.OneToOneField(Movie, on_delete=models.CASCADE, null=True)
+    unknown = models.IntegerField(default=0)
+    Action = models.IntegerField(default=0)
+    Adventure = models.IntegerField(default=0)
+    Animation = models.IntegerField(default=0)
+    Childrens = models.IntegerField(default=0)
+    Comedy = models.IntegerField(default=0)
+    Crime = models.IntegerField(default=0)
+    Documentary = models.IntegerField(default=0)
+    Drama = models.IntegerField(default=0)
+    Fantasy = models.IntegerField(default=0)
+    FilmNoir = models.IntegerField(default=0)
+    Horror = models.IntegerField(default=0)
+    Musical = models.IntegerField(default=0)
+    Mystery = models.IntegerField(default=0)
+    Romance = models.IntegerField(default=0)
+    SciFi = models.IntegerField(default=0)
+    Thriller = models.IntegerField(default=0)
+    War = models.IntegerField(default=0)
+    Western = models.IntegerField(default=0)
