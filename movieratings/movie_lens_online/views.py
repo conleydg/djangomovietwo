@@ -101,14 +101,6 @@ def login_user(request):
 
 
 def top_by_genre(request, genre):
-        # for movie in Movie.objects.all():
-        #     movie_id = movie.movie_id
-        #     movie_ratings = Rating.objects.filter(movie_id=movie_id)
-        #     movie_count = len(movie_ratings)
-        #     movie_sum = movie_ratings.aggregate(Sum('rating'))
-        #     movie_avg = movie_sum['rating__sum']/movie_count
-        #     movie.
-        #
         genre_find='moviegenre__{}'.format(genre)
         sig_sample = Movie.objects.annotate(count = Count('rating')).filter(count__gt = 10)
         sig_sample = sig_sample.filter(**{genre_find:1})

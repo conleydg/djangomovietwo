@@ -1,11 +1,17 @@
 from django import forms
 from django.template import RequestContext
 from .models import Rater, Movie, Rating
+import re
+from django.core.validators import RegexValidator
 
 class AddRatingForm(forms.ModelForm):
-    rating = forms.CharField(max_length=128, help_text="Please enter your rating:")
+    rating = forms.IntegerField(help_text="Please enter your rating:")
 
-    # rater_id =
+    def clean_rating(self):
+        rating = self.cleaned_data['rating']
+        if rating > 5 or rating < 0:
+            raise forms.ValidationError('Rating must be 1-5')
+        return rating
 
 
     # An inline class to provide additional information on the form.

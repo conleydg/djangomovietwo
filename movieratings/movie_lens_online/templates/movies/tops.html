@@ -4,11 +4,11 @@
 
 <h1>{{ genre }}</h1>
 {% if sorted_movies %}
-    <ul>
+    <ol>
     {% for movie in sorted_movies %}
-        <li><a href="/movie_lens_online/{{ movie.movie_id }}/">{{ movie.movie_title}}</a> : {{ movie.aveg_rating}}</li>
+        <li><a href="/movie_lens_online/{{ movie.movie_id }}/">{{ movie.movie_title}}</a> : {{ movie.aveg_rating|floatformat:2}}</li>
     {% endfor %}
-    </ul>
+  </ol>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}

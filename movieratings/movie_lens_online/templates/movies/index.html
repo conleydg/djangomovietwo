@@ -2,15 +2,15 @@
 {% load i18n %}
 {% block content %}
 
-
+<h1>Top Twenty Movies</h1>
 
 
 {% if top_twenty_list %}
-    <ul>
+    <ol>
     {% for movie in top_twenty_list %}
-        <li><a href="/movie_lens_online/{{ movie.movie_id }}/">{{ movie.movie_title }} {{ movie.avg_rating }}</a></li>
+        <li><a href="/movie_lens_online/{{ movie.movie_id }}/">{{ movie.movie_title }} {{ movie.avg_rating|floatformat:2 }}</a></li>
     {% endfor %}
-    </ul>
+    </ol>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}

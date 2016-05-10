@@ -19,8 +19,29 @@
     {% else %}
        <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
     {% endif %}
-    <br />
-    
+    <br>
+
+    <h4>Top Tenty Movies by Genre</h4>
+
+    <a href="/movie_lens_online/top/Action">{% trans "Action" %}</a> |
+    <a href="/movie_lens_online/top/Adventure">{% trans "Adventure" %}</a> |
+    <a href="/movie_lens_online/top/Animation">{% trans "Crime" %}</a> |
+    <a href="/movie_lens_online/top/Childrens">{% trans "Childrens" %}</a> |
+    <a href="/movie_lens_online/top/Comedy">{% trans "Comedy" %}</a> |
+    <a href="/movie_lens_online/top/Crime">{% trans "Crime" %}</a> |
+    <a href="/movie_lens_online/top/Documentary">{% trans "Documentary" %}</a> |
+    <a href="/movie_lens_online/top/Drama">{% trans "Drama" %}</a> |
+    <a href="/movie_lens_online/top/Fantasy">{% trans "Fantasy" %}</a> |
+    <a href="/movie_lens_online/top/FilmNoir">{% trans "FilmNoir" %}</a> |
+    <a href="/movie_lens_online/top/Horror">{% trans "Horror" %}</a> |
+    <a href="/movie_lens_online/top/Musical">{% trans "Musical" %}</a> |
+    <a href="/movie_lens_online/top/Mystery">{% trans "Mystery" %}</a> |
+    <a href="/movie_lens_online/top/Romance">{% trans "Romance" %}</a> |
+    <a href="/movie_lens_online/top/SciFi">{% trans "SciFi" %}</a> |
+    <a href="/movie_lens_online/top/Thriller">{% trans "Thriller" %}</a> |
+    <a href="/movie_lens_online/top/War">{% trans "War" %}</a> |
+    <a href="/movie_lens_online/top/Western">{% trans "Western" %}</a> |
+
     <hr />
     {% endblock %}
     </div>
