@@ -1,60 +1,132 @@
 {% load i18n %}
 <!DOCTYPE html>
+
+
 <html lang="en">
 
-<head>
-    <link rel="stylesheet" href="{{ STATIC_URL }}style.css" />
-    <title>{% block title %}Movie Ratings{% endblock %}</title>
-</head>
+  <head>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Movie Lens Ratings</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 <body>
-    <div id="header">
-    {% block header %}
-    <a href="{% url 'index' %}">{% trans "Home" %}</a> |
 
-    {% if user.is_authenticated %}
-        {% trans "Logged in" %}: {{ user.username }}
-        (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> |
-        <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
-    {% else %}
-       <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
-    {% endif %}
-    <br>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Movie Lens Project</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'movie_lens_online:index' %}">Home</a></li>
+              {% if user.is_authenticated %}
+            <li>Logged in: {{ user.username }}</li>
+            <li><a href="{% url 'auth_logout' %}">Log out</a></li>
+            <li><a href="{% url 'auth_password_change' %}">Change password</a></li>
+            {% else %}
+            <li><a href="{% url 'auth_login' %}">{% trans "Log in" %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <h4>Top Tenty Movies by Genre</h4>
 
-    <a href="/movie_lens_online/top/Action">{% trans "Action" %}</a> |
-    <a href="/movie_lens_online/top/Adventure">{% trans "Adventure" %}</a> |
-    <a href="/movie_lens_online/top/Animation">{% trans "Crime" %}</a> |
-    <a href="/movie_lens_online/top/Childrens">{% trans "Childrens" %}</a> |
-    <a href="/movie_lens_online/top/Comedy">{% trans "Comedy" %}</a> |
-    <a href="/movie_lens_online/top/Crime">{% trans "Crime" %}</a> |
-    <a href="/movie_lens_online/top/Documentary">{% trans "Documentary" %}</a> |
-    <a href="/movie_lens_online/top/Drama">{% trans "Drama" %}</a> |
-    <a href="/movie_lens_online/top/Fantasy">{% trans "Fantasy" %}</a> |
-    <a href="/movie_lens_online/top/FilmNoir">{% trans "FilmNoir" %}</a> |
-    <a href="/movie_lens_online/top/Horror">{% trans "Horror" %}</a> |
-    <a href="/movie_lens_online/top/Musical">{% trans "Musical" %}</a> |
-    <a href="/movie_lens_online/top/Mystery">{% trans "Mystery" %}</a> |
-    <a href="/movie_lens_online/top/Romance">{% trans "Romance" %}</a> |
-    <a href="/movie_lens_online/top/SciFi">{% trans "SciFi" %}</a> |
-    <a href="/movie_lens_online/top/Thriller">{% trans "Thriller" %}</a> |
-    <a href="/movie_lens_online/top/War">{% trans "War" %}</a> |
-    <a href="/movie_lens_online/top/Western">{% trans "Western" %}</a> |
 
-    <hr />
-    {% endblock %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="/movie_lens_online/top/Action">Action<span class="sr-only">(current)</span></a></li>
+            <li><a href="/movie_lens_online/top/Action">Action</a></li>
+            <li><a href="/movie_lens_online/top/Adventure">Adventure</a></li>
+          </ul>
+
+          <ul class="nav nav-sidebar">
+            <li><a href="/movie_lens_online/top/Animation">{% trans "Crime" %}</a></li>
+            <li><a href="/movie_lens_online/top/Childrens">{% trans "Childrens" %}</a></li>
+            <li><a href="/movie_lens_online/top/Comedy">{% trans "Comedy" %}</a></li>
+            <li><a href="/movie_lens_online/top/Crime">{% trans "Crime" %}</a></li>
+            <li><a href="/movie_lens_online/top/Documentary">{% trans "Documentary" %}</a></li>
+            <li><a href="/movie_lens_online/top/Drama">{% trans "Drama" %}</a></li>
+            <li><a href="/movie_lens_online/top/Fantasy">{% trans "Fantasy" %}</a></li>
+            <li><a href="/movie_lens_online/top/FilmNoir">{% trans "FilmNoir" %}</a></li>
+            <li><a href="/movie_lens_online/top/Horror">{% trans "Horror" %}</a></li>
+            <li><a href="/movie_lens_online/top/Musical">{% trans "Musical" %}</a></li>
+            <li><a href="/movie_lens_online/top/Mystery">{% trans "Mystery" %}</a></li>
+            <li><a href="/movie_lens_online/top/Romance">{% trans "Romance" %}</a></li>
+            <li><a href="/movie_lens_online/top/SciFi">{% trans "SciFi" %}</a></li>
+            <li><a href="/movie_lens_online/top/Thriller">{% trans "Thriller" %}</a></li>
+            <li><a href="/movie_lens_online/top/War">{% trans "War" %}</a></li>
+            <li><a href="/movie_lens_online/top/Western">{% trans "Western" %}</a></li>
+          </ul>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+      </div>
     </div>
 
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
 
-    <div id="footer">
-    {% block footer %}
-        <hr />
-    {% endblock %}
-    </div>
-</body>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>
