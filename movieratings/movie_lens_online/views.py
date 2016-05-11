@@ -17,23 +17,15 @@ def index(request):
     context = {'top_twenty_list': top_twenty_list}
     return render(request, 'movies/index.html', context)
 
-def top_twenty(request):
-    return HttpResponse("Hello, world. You're at the top twenty view.")
-
-def users(request):
-    return HttpResponse("Hello, world. You're at the users view.")
 
 def movie(request, movie_id):
     if request.method == 'POST':
         form = AddRatingForm(request.POST)
-
         if form.is_valid():
             new_rating = form.save(commit=False)
             new_rating.movie_id = movie_id
             user = request.user.username
             username = User.objects.get(username=user)
-
-            # username = User.objects.get(username=user)
             new_rating.rater_id = username.rater.user_id
             new_rating.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -42,15 +34,9 @@ def movie(request, movie_id):
     else:
         form = AddRatingForm()
     try:
-        user = request.user.username
-        username = User.objects.get(username=user)
         current_id = username.rater.user_id
     except:
-        user = None
-        username = None
         current_id = None
-    # username = User.objects.get(username=user)
-    # current_id = username.rater.user_id
     rating_list = Rating.objects.filter(movie_id=movie_id)
     rater_queries = rating_list.values_list('rater_id', flat=True)
     grabber = (Movie.objects.get(movie_id=movie_id))
@@ -60,8 +46,6 @@ def movie(request, movie_id):
                 'name_finder': name_finder, 'avg_rating': avg_rating, 'form':form,
                 'rater_queries':rater_queries, 'current_id':current_id}
     return render(request, 'movies/movie.html', context)
-
-    # return HttpResponse('{}'.format((Movie.objects.get(movie_id=movie_id).movie_title)))
 
 
 def raterer(request, user_id):
@@ -80,34 +64,11 @@ def raterer(request, user_id):
 
 
 
-def login_user(request):
-    state = "Please log in below..."
-    username = password = ''
-    if request.POST:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                state = "You're successfully logged in!"
-            else:
-                state = "Your account is not active, please contact the site admin."
-        else:
-            state = "Your username and/or password were incorrect."
-
-    return render(request, 'movies/auth.html',{'state':state, 'username': username})
-
-
 def top_by_genre(request, genre):
         genre_find='moviegenre__{}'.format(genre)
         sig_sample = Movie.objects.annotate(count = Count('rating')).filter(count__gt = 10)
         sig_sample = sig_sample.filter(**{genre_find:1})
         sorted_movies = sig_sample.annotate(aveg_rating = Avg('rating__rating')).order_by('-aveg_rating')
         sorted_movies = sorted_movies[:20]
-        # for movie in sorted_movies:
-        #     movie_obj_avg = movie.aveg_rating
-
         context = {'sorted_movies':sorted_movies, 'genre':genre}
         return render(request, 'movies/tops.html', context)

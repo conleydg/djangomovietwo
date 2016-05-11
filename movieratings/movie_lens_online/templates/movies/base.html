@@ -1,5 +1,6 @@
 {% load i18n %}
 <!DOCTYPE html>
+{% load staticfiles %}
 
 
 <html lang="en">
@@ -23,11 +24,13 @@
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
+
+    <link rel="stylesheet" type="text/css" href="{% static 'movie_lens_online/style.css' %}" />
 
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
@@ -37,7 +40,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-<body>
+
+  <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -53,30 +57,26 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="{% url 'movie_lens_online:index' %}">Home</a></li>
-              {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
             <li>Logged in: {{ user.username }}</li>
-            <li><a href="{% url 'auth_logout' %}">Log out</a></li>
-            <li><a href="{% url 'auth_password_change' %}">Change password</a></li>
-            {% else %}
-            <li><a href="{% url 'auth_login' %}">{% trans "Log in" %}</a></li>
-            {% endif %}
+          <li><a href="{% url 'auth_logout' %}">Log out</a></li>
+          <li><a href="{% url 'auth_password_change' %}">Change password</a></li>
+          {% else %}
+          <li><a href="{% url 'auth_login' %}">{% trans "Log in" %}</a></li>
+          {% endif %}
           </ul>
         </div>
       </div>
     </nav>
 
 
-
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/movie_lens_online/top/Action">Action<span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="/movie_lens_online/top/Action">Action <span class="sr-only">(current)</span></a></li>
             <li><a href="/movie_lens_online/top/Action">Action</a></li>
             <li><a href="/movie_lens_online/top/Adventure">Adventure</a></li>
-          </ul>
-
-          <ul class="nav nav-sidebar">
             <li><a href="/movie_lens_online/top/Animation">{% trans "Crime" %}</a></li>
             <li><a href="/movie_lens_online/top/Childrens">{% trans "Childrens" %}</a></li>
             <li><a href="/movie_lens_online/top/Comedy">{% trans "Comedy" %}</a></li>
@@ -94,7 +94,10 @@
             <li><a href="/movie_lens_online/top/War">{% trans "War" %}</a></li>
             <li><a href="/movie_lens_online/top/Western">{% trans "Western" %}</a></li>
           </ul>
+
         </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
 
         {% block content %}
         {% endblock %}
